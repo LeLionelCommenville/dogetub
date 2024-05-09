@@ -7,7 +7,7 @@ export default function App() {
     <View className="flex-1 items-center justify-center bg-white font-sans">
       <Text>Dogetube like youtube but much wow!</Text>
       <StatusBar style="auto" />
-      <Link href="/profile" className="text-3xl font-sans-bold">Go to Profile</Link>
+      <Link href="/home" className="text-3xl font-sans-bold">Go to Home</Link>
     </View>
   );
 }
