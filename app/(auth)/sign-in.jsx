@@ -1,10 +1,11 @@
-import { View, Text, Image, ScrollView } from 'react-native'
+import { View, Text, Image, ScrollView, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { images } from '../../constants'
 import FormFiled from '../../components/FormFiled'
 import CustomButton from '../../components/CustomButton'
-import { Link } from 'expo-router'
+import { Link, router } from 'expo-router'
+import { signIn } from '../../lib/appwrite'
 
 const SignIn = () => {
 
@@ -15,8 +16,20 @@ const SignIn = () => {
 
   const [isSubmiting, setisSubmiting] = useState(false)
 
-  const submit = () => {
-
+  const submit = async () => {
+    
+    if(!form.email || !form.password) {
+      Alert.alert('Error', 'Please fill in all fields')
+    }
+    setisSubmiting(true);
+    try {
+      const result = await signIn(form.email, form.password, form.username);
+      router.replace('/home')
+    } catch (error) {
+      Alert.alert('Error', error.message)
+    } finally {
+      setisSubmiting(false)
+    }
   }
 
   return (
@@ -50,7 +63,6 @@ const SignIn = () => {
           <View className="flex-row items-center justify-center pt-5 flex-row gap-2">
             <Text className="text-lg text-gray-200">Don't have an account?</Text>
             <Link href="/sign-up" className="text-lg text-blue-400">Sign up</Link>
-
           </View>
         </View>
       </ScrollView>
