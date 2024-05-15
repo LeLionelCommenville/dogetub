@@ -5,7 +5,7 @@ import { images } from '../../constants'
 import FormFiled from '../../components/FormFiled'
 import CustomButton from '../../components/CustomButton'
 import { Link, router } from 'expo-router'
-import { signIn } from '../../lib/appwrite'
+import { signIn, singIn } from '../../lib/appwrite'
 
 const SignIn = () => {
 
@@ -23,7 +23,11 @@ const SignIn = () => {
     }
     setisSubmiting(true);
     try {
-      const result = await signIn(form.email, form.password, form.username);
+      await singIn(form.email, form.password);
+      const result = await getCurrentUser();
+      setUser(result);
+      setIsLogged(true);
+      Alert.alert("Success", "User singed in successfully");
       router.replace('/home')
     } catch (error) {
       Alert.alert('Error', error.message)

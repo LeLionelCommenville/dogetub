@@ -4,8 +4,14 @@ import { Link, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { images } from '../constants';
 import CustomButton from '../components/CustomButton';
+import { useGlobalContext } from '../context/GlobalProvider';
 
 export default function App() {
+  
+  const {isLoading, isLoggdedIn} = useGlobalContext();
+  
+  if(!isLoading && isLoggdedIn) return <Redirect href="/home" />
+
   return (
     <SafeAreaView className="bg-black h-full">
       <ScrollView contentContainerStyle={{
@@ -38,11 +44,5 @@ export default function App() {
       </ScrollView>
       <StatusBar backgroundColor='#161622' style='light'/>
     </SafeAreaView>
-
-    // <View className="flex-1 items-center justify-center bg-white font-sans">
-    //   <Text>Dogetube like youtube but much wow!</Text>
-    //   <StatusBar style="auto" />
-    //   <Link href="/home" className="text-3xl font-sans-bold">Go to Home</Link>
-    // </View>
   );
 }
