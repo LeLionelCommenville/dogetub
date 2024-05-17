@@ -11,8 +11,7 @@
   "include": [
     "**/*.ts",
     "**/*.tsx",
-    "app/profile.jsx",
     "app/index.jsx",
     "app/_layout.jsx"
-  ]
+, "constants/icons.js"  ]
 }
