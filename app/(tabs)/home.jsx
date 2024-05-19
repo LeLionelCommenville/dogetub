@@ -1,11 +1,21 @@
-import { View, Text, SafeAreaView, FlatList, Image } from 'react-native'
-import React from 'react'
+import { View, Text, SafeAreaView, FlatList, Image, RefreshControlComponent, RefreshControl } from 'react-native'
+import React, { useState } from 'react'
 import { images } from '../../constants'
 import SearchInput from '../../components/SearchInput'
 import Trending from '../../components/Trending'
 import EmptyState from '../../components/EmptyState'
 
 const home = () => {
+
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    //call get videos to see if any new video come out or not
+    setRefreshing(false);  
+  }
+
+
   return (
     <SafeAreaView className="bg-black h-full">
       <FlatList
@@ -48,6 +58,7 @@ const home = () => {
             subtitle="Be the first one to upload a doge"
           />
         )}
+        refreshControl={<RefreshControl refreshing={refreshing}  onRefresh={onRefresh} />}
       />
     </SafeAreaView>
   )
